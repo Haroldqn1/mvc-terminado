@@ -52,32 +52,7 @@
             </tr>
           </thead>
           <tbody>
-            <!--AGREGAR DATOS DE PRUEBA-->
-            <tr>
-              <td>1</td>
-              <td>Curso de Autocad</td>
-              <td>Administracion</td>
-              <td>B</td>
-              <td>03/04/2023</td>
-              <td>200</td>
-              <td>
-                <a href="" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
-                <a href="" class="btn btn-info btn-sm"><i class="bi bi-pencil"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Curso Office</td>
-              <td>ETI</td>
-              <td>B</td>
-              <td>03/04/2023</td>
-              <td>300</td>
-              <td>
-                <a href="" class="btn btn-danger btn-sm"><i class="bi bi-trash-fill"></i></a>
-                <a href="" class="btn btn-info btn-sm"><i class="bi bi-pencil"></i></a>
-              </td>
-            </tr>
-            <!--FIN DE DATOS DE PRUEBA-->
+            
           </tbody>
         </table>
       </div>
@@ -99,9 +74,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form action="">
+          <form action="" id="formulario-cursos">
             <div class="mb-3">
-              <label for="" class="form-label">Nombre Curso</label>
+              <label for="nombrecurso" class="form-label">Nombre Curso</label>
               <input type="text" class="form-control form-control-sm" id="nombrecurso">
             </div>
             <div class="mb-3">
@@ -134,7 +109,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary btn-sm">Guardar</button>
+          <button type="button" class="btn btn-primary btn-sm" id="guardar-curso">Guardar</button>
         </div>
       </div>
     </div>
@@ -160,6 +135,7 @@
 
   <script>
     $(document).ready(function(){
+      //---------------------------------
       function mostrarCursos(){
         $.ajax({
           url: '../controllers/curso.controller.php',
@@ -171,6 +147,44 @@
           }
         });
       }
+      //---------------------------------
+      function registrarCurso(){
+        //Pendiente de validar...
+
+
+        //Alert: muestra una alerta
+        //prompt: muestra alerta para escribir
+
+        //const nombre = prompt("Escribe tu nombre");
+        //alert(`Un gusto conocerte ${nombre}`);
+
+        if (confirm("¿Está seguro de registrar este curso?")){
+          $.ajax({
+            url:'../controllers/curso.controller.php',
+            type:'POST',
+            data:{
+              operacion     : 'registrar',
+              nombrecurso   : $("#nombrecurso").val(),
+              especialidad  : $("#especialidad").val(),
+              complejidad   : $("#complejidad").val(),
+              fechainicio   : $("#fechainicio").val(),
+              precio        : $("#precio").val()
+            },
+            success: function(result){
+              if (result == ""){
+                //Reiniciar el formulario
+                $("#formulario-cursos")[0].reset();
+                //Actualizar la tabla
+                mostrarCursos();
+                //Cerrar el modal
+                $("#modal-registro-cursos").modal('hide');
+              }
+            }
+          });
+        }
+      }
+      //Evento
+      $("#guardar-curso").click(registrarCurso);
 
       // Ejecucion Automatica
       mostrarCursos();
