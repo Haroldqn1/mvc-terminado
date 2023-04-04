@@ -20,7 +20,7 @@ class Conexion{
     //OBJETO            SOBRECARGAS
     $conexion = new PDO("mysql:host={$this->host};port={$this->port};dbname={$this->database};charset={$this->charset}",
                                       $this->user,$this->password);
-    return $conexion
+    return $conexion;
   }
 
   //Metodo 2: Retorna el acceso

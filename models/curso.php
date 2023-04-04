@@ -1,6 +1,6 @@
 <?php
 
-require_once "./conexion.php"
+require_once "conexion.php";
 
 //MODELO = CONTIENE LA LOGICA
 //extends : HERENCIA (POO) en PHP
@@ -23,7 +23,7 @@ class Curso extends Conexion{
       //2:EJECUTAMOS LA CONSULTA
       $consulta->execute();
       //3:DEVOLVEMOS LA CONSULTA(array asociativo)
-      return $consulta->fechAll(PDO::FERCH_ASSOOC);
+      return $consulta->fetchAll(PDO::FETCH_ASSOC);
     }
     catch(Exception $e){
       die($e->getMessage());
