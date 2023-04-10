@@ -60,3 +60,43 @@ END $$
 CALL spu_registrar_cursos('Python','ETI','B','2023-05-10','150');
 
 CALL spu_cursos_listar()
+
+-- PROCEDIMIENTO ELIMINAR
+
+CALL spu_cursos_eliminar();
+
+
+-- Lumes 10 de Abril 2023
+-- Actualizar
+DELIMITER $$
+CREATE PROCEDURE spu_cursos_recuperar_id(IN _idcurso INT)
+BEGIN
+	SELECT * FROM cursos WHERE idcurso = _idcurso;
+END;
+
+CALL spu_cursos_recuperar_id(3);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
